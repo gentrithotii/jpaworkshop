@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class AppUserRepositoryTest {
+
     @Autowired
     private AppUserRepository appUserRepository;
 
@@ -72,7 +73,7 @@ class AppUserRepositoryTest {
         //Arrange
         AppUser expected = user1;
         //Act
-        AppUser result = appUserRepository.findAppUsersByUsername("test");
+        AppUser result = appUserRepository.findAppUsersByUsername("test").get();
         //Assert
         assertEquals(expected, result);
     }

@@ -8,20 +8,16 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Optional;
 
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 
-    @Query(value = "SELECT au FROM AppUser AS au WHERE au.username = :username ")
-    AppUser findAppUsersByUsername(@Param("username") String searchName);
-
-///    @Query(value = "SELECT au FROM AppUser  as au WHERE au.regDate = :regDate AND local date BETWEEN  au.regDate AND :toDate ")
-///   Collection<AppUser> findAppUserByRegDateBetween(@Param("regDate") LocalDate fromDate,@Param("toDate") LocalDate toDate);
-
+    Optional<AppUser> findAppUsersByUsername(String username);
 
     Collection<AppUser> findAppUserByRegDateBetween(LocalDate regDateAfter, LocalDate regDateBefore);
 
-    AppUser findAppUserByUserDetails_Id(int userDetailsId);
+    Optional<AppUser> findAppUsersByUserDetails_Id(int id);
 
-    AppUser findAppUsersByUserDetails_Email(String userDetailsEmail);
+    Optional<AppUser> findAppUsersByUserDetails_Email(String userDetailsEmail);
 }

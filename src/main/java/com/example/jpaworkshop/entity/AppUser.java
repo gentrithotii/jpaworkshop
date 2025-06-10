@@ -2,7 +2,6 @@ package com.example.jpaworkshop.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.sql.Update;
 
 import java.time.LocalDate;
 
