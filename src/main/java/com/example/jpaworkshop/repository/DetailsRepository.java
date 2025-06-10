@@ -7,5 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DetailsRepository extends CrudRepository<Details, Integer> {
+    //Find by email
+    //Find by name contains
+    //Find by name ignore-case
 
 }

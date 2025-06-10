@@ -20,6 +20,7 @@ public class Details {
 
     @Column(unique = true, length = 100)//Makes the colum unique so no duplicates
     private String email;
+
     @Column(length = 70)
     private String name;
     private LocalDate birthDate;
