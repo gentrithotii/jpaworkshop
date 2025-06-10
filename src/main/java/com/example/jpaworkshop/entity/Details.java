@@ -1,13 +1,11 @@
 package com.example.jpaworkshop.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -17,10 +15,12 @@ public class Details {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, name = "details_id")
     private int id;
 
-    @Column(unique = true)//Makes the colum unique so no duplicates
+    @Column(unique = true, length = 100)//Makes the colum unique so no duplicates
     private String email;
+    @Column(length = 70)
     private String name;
     private LocalDate birthDate;
 

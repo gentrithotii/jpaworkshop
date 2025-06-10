@@ -1,18 +1,18 @@
 package com.example.jpaworkshop.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.sql.Update;
 
 import java.time.LocalDate;
 
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-@Entity//
+
+@Entity
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +21,11 @@ public class AppUser {
 
     @Column(unique = true, length = 100)
     private String username;
+
     @Column(nullable = false, length = 100)
     private String password;
+
+    @Column(updatable = false)
     private LocalDate regDate;
 
     @OneToOne(cascade = CascadeType.ALL)
