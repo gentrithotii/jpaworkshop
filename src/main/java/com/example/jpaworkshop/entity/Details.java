@@ -5,11 +5,13 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
+
 @Entity
 public class Details {
 
@@ -18,15 +20,13 @@ public class Details {
     @Column(updatable = false, name = "details_id")
     private int id;
 
-    @Column(unique = true, length = 100)//Makes the colum unique so no duplicates
+    @Column(nullable = false, unique = true, length = 70)
     private String email;
 
-    @Column(length = 70)
+    @Column(nullable = false, length = 70)
     private String name;
-    private LocalDate birthDate;
 
-    public Details() {
-    }
+    private LocalDate birthDate;
 
     public Details(String email, String name, LocalDate birthDate) {
         this.email = email;

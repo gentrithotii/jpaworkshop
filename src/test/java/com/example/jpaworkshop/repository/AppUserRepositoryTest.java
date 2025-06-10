@@ -2,7 +2,6 @@ package com.example.jpaworkshop.repository;
 
 import com.example.jpaworkshop.entity.AppUser;
 import com.example.jpaworkshop.entity.Details;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,10 +12,10 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
+@DataJpaTest //Spring boot annotation to specifically test Jpa repository's
 class AppUserRepositoryTest {
 
-    @Autowired
+    @Autowired // Spring core annotation used for dependency injection to create the bean/instance of field  in the IOC container , can be injected in setter ,field or constructor
     private AppUserRepository appUserRepository;
 
     private AppUser user1;
@@ -25,7 +24,7 @@ class AppUserRepositoryTest {
     private AppUser user4;
     private AppUser user5;
 
-    @BeforeEach
+    @BeforeEach // Used to set up things before each test
     public void setUp() {
         Details detailsUser1 = new Details("test@test.com", "Gentrit", LocalDate.of(1994, 10, 24));
         user1 = new AppUser("test", "1234", LocalDate.now(), detailsUser1);
@@ -51,8 +50,8 @@ class AppUserRepositoryTest {
     }
 
 
-    @Test
-    @DisplayName("Test if user is added to inMemoryDB")
+    @Test //Marks it as test
+    @DisplayName("Test if user is added to inMemoryDB") //Changes the test name to the one given in the parentheses
     public void testIfUserAdded() {
         //Arrange
         Details detailsUser = new Details("create@create.com", "creator", LocalDate.of(2000, 10, 24));

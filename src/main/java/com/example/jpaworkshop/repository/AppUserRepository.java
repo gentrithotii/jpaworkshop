@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Optional;
 
-@Repository
+@Repository //Marks this interface as a repository that will handle crud operations is not needed but good to use
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 
     Optional<AppUser> findAppUsersByUsername(String username);
