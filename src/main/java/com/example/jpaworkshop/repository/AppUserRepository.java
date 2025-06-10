@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 
-    @Query(value = "SELECT au FROM AppUser AS au WHERE au.username = :userName ")
-    AppUser findAppUsersByUsername(@Param("userName") String searchName);
+    @Query(value = "SELECT au FROM AppUser AS au WHERE au.username = :username ")
+    AppUser findAppUsersByUsername(@Param("username") String searchName);
 }
