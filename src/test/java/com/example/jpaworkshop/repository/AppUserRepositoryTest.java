@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,5 +79,169 @@ class AppUserRepositoryTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    @DisplayName("Test find users by registration date between")
+    public void testFindUsersByRegDateBetween() {
+        //Arrange
+        LocalDate startDate = LocalDate.now().minusDays(1);
+        LocalDate endDate = LocalDate.now().plusDays(1);
+        
+        //Act
+        Collection<AppUser> result = appUserRepository.findAppUserByRegDateBetween(startDate, endDate);
+        
+        //Assert
+        assertEquals(5, result.size());
+        assertTrue(result.contains(user1));
+        assertTrue(result.contains(user2));
+        assertTrue(result.contains(user3));
+        assertTrue(result.contains(user4));
+        assertTrue(result.contains(user5));
+    }
 
+    @Test
+    @DisplayName("Test find user by details id")
+    public void testFindUserByDetailsId() {
+        //Arrange
+        AppUser expected = user1;
+        int detailsId = user1.getUserDetails().getId();
+        
+        //Act
+        AppUser result = appUserRepository.findAppUsersByUserDetails_Id(detailsId).get();
+        
+        //Assert
+        assertNotNull(result);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Test find user by details email")
+    public void testFindUserByDetailsEmail() {
+        //Arrange
+        AppUser expected = user2;
+        String email = "anna@example.com";
+        
+        //Act
+        AppUser result = appUserRepository.findAppUsersByUserDetails_Email(email).get();
+        
+        //Assert
+        assertNotNull(result);
+        assertEquals(expected, result);
+        assertEquals(email, result.getUserDetails().getEmail());
+    }
+
+
+    @Test
+    @DisplayName("Test find users by registration date between with no results")
+    public void testFindUsersByRegDateBetweenNoResults() {
+        //Arrange
+        LocalDate startDate = LocalDate.now().plusDays(1);
+        LocalDate endDate = LocalDate.now().plusDays(2);
+
+        //Act
+        Collection<AppUser> result = appUserRepository.findAppUserByRegDateBetween(startDate, endDate);
+
+        //Assert
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Test find users by registration date between single day")
+    public void testFindUsersByRegDateBetweenSameDay() {
+        //Arrange
+        LocalDate today = LocalDate.now();
+
+        //Act
+        Collection<AppUser> result = appUserRepository.findAppUserByRegDateBetween(today, today);
+
+        //Assert
+        assertEquals(5, result.size());
+    }
+
+    @Test
+    @DisplayName("Test find user by details id when user doesn't exist")
+    public void testFindUserByDetailsIdNotFound() {
+        //Arrange
+        int nonExistentId = 99999;
+
+        //Act & Assert
+        assertTrue(appUserRepository.findAppUsersByUserDetails_Id(nonExistentId).isEmpty());
+    }
+
+    @Test
+    @DisplayName("Test find user by details email with non-existent email")
+    public void testFindUserByDetailsEmailNotFound() {
+        //Arrange
+        String nonExistentEmail = "nonexistent@example.com";
+
+        //Act & Assert
+        assertTrue(appUserRepository.findAppUsersByUserDetails_Email(nonExistentEmail).isEmpty());
+    }
+
+    @Test
+    @DisplayName("Test find user by username with non-existent username")
+    public void testFindUserByUsernameNotFound() {
+        //Arrange
+        String nonExistentUsername = "nonexistentuser";
+
+        //Act & Assert
+        assertTrue(appUserRepository.findAppUsersByUsername(nonExistentUsername).isEmpty());
+    }
+
+    @Test
+    @DisplayName("Test find users by registration date between with reversed dates")
+    public void testFindUsersByRegDateBetweenReversedDates() {
+        //Arrange
+        LocalDate endDate = LocalDate.now().minusDays(1);
+        LocalDate startDate = LocalDate.now().plusDays(1);
+
+        //Act
+        Collection<AppUser> result = appUserRepository.findAppUserByRegDateBetween(startDate, endDate);
+
+        //Assert
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Test case sensitivity of username search")
+    public void testFindUserByUsernameCaseSensitive() {
+        //Arrange
+        String upperCaseUsername = "TEST"; // original is "test"
+
+        //Act
+        Optional<AppUser> result = appUserRepository.findAppUsersByUsername(upperCaseUsername);
+
+        //Assert
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Test find user by details email case insensitive")
+    public void testFindUserByDetailsEmailCaseInsensitive() {
+        //Arrange
+        String upperCaseEmail = "ANNA@EXAMPLE.COM"; // original is "anna@example.com"
+
+        //Act
+        Optional<AppUser> result = appUserRepository.findAppUsersByUserDetails_Email(upperCaseEmail);
+
+        //Assert
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    @DisplayName("Test multiple users with same registration date")
+    public void testMultipleUsersWithSameRegDate() {
+        //Arrange
+        Details newDetails = new Details("new@test.com", "NewUser", LocalDate.of(1995, 1, 1));
+        AppUser newUser = new AppUser("newuser", "pass123", LocalDate.now(), newDetails);
+        appUserRepository.save(newUser);
+
+        //Act
+        Collection<AppUser> result = appUserRepository.findAppUserByRegDateBetween(
+                LocalDate.now(), LocalDate.now());
+
+        //Assert
+        assertEquals(6, result.size());
+        assertTrue(result.contains(newUser));
+    }
 }
+
