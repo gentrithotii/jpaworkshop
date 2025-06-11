@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 //Lombok
 @NoArgsConstructor // Adds empty constructor which is needed for JPA
