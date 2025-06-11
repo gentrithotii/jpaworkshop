@@ -106,7 +106,7 @@ class AppUserRepositoryTest {
         int detailsId = user1.getUserDetails().getId();
         
         //Act
-        AppUser result = appUserRepository.findAppUsersByUserDetails_Id(detailsId).get();
+        AppUser result = appUserRepository.findAppUserByUserDetails_Id(detailsId).get();
         
         //Assert
         assertNotNull(result);
@@ -121,7 +121,7 @@ class AppUserRepositoryTest {
         String email = "anna@example.com";
         
         //Act
-        AppUser result = appUserRepository.findAppUsersByUserDetails_Email(email).get();
+        AppUser result = appUserRepository.findAppUserByUserDetails_Email(email).get();
         
         //Assert
         assertNotNull(result);
@@ -164,7 +164,7 @@ class AppUserRepositoryTest {
         int nonExistentId = 99999;
 
         //Act & Assert
-        assertTrue(appUserRepository.findAppUsersByUserDetails_Id(nonExistentId).isEmpty());
+        assertTrue(appUserRepository.findAppUserByUserDetails_Id(nonExistentId).isEmpty());
     }
 
     @Test
@@ -174,7 +174,7 @@ class AppUserRepositoryTest {
         String nonExistentEmail = "nonexistent@example.com";
 
         //Act & Assert
-        assertTrue(appUserRepository.findAppUsersByUserDetails_Email(nonExistentEmail).isEmpty());
+        assertTrue(appUserRepository.findAppUserByUserDetails_Email(nonExistentEmail).isEmpty());
     }
 
     @Test
@@ -221,7 +221,7 @@ class AppUserRepositoryTest {
         String upperCaseEmail = "ANNA@EXAMPLE.COM"; // original is "anna@example.com"
 
         //Act
-        Optional<AppUser> result = appUserRepository.findAppUsersByUserDetails_Email(upperCaseEmail);
+        Optional<AppUser> result = appUserRepository.findAppUserByUserDetails_Email(upperCaseEmail);
 
         //Assert
         assertTrue(result.isEmpty());
