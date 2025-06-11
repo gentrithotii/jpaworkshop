@@ -7,8 +7,6 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @ToString
 @EqualsAndHashCode
 
@@ -18,14 +16,22 @@ public class Details {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, name = "details_id")
+    @Getter
     private int id;
 
+
+    @Getter
+    @Setter
     @Column(nullable = false, unique = true, length = 70)
     private String email;
 
+    @Getter
+    @Setter
     @Column(nullable = false, length = 70)
     private String name;
 
+    @Getter
+    @Setter
     private LocalDate birthDate;
 
     public Details(String email, String name, LocalDate birthDate) {
