@@ -3,9 +3,12 @@ package com.example.jpaworkshop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 
 @Entity
 public class Book {
@@ -29,9 +32,13 @@ public class Book {
     @Column(nullable = false)
     private int maxLoanDays;
 
-    public Book(String title, String isbn, int maxLoanDays) {
+    public Book(String title, int maxLoanDays) {
         this.title = title;
-        this.isbn = isbn;
         this.maxLoanDays = maxLoanDays;
+    }
+
+    @PrePersist
+    private void onCreation() {
+        this.isbn = String.valueOf(UUID.randomUUID());
     }
 }

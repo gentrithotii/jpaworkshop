@@ -22,5 +22,4 @@ public interface BookLoanRepository extends CrudRepository<BookLoan, Integer> {
 
     Optional<BookLoan> findBookLoanById(int id);
 
-
 }

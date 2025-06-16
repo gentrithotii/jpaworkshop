@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface BookRepository extends CrudRepository<Book, Integer> {
     Optional<Book> findBooksByIsbnIgnoreCase(String isbn);
 
-    Optional<Book> findBooksByTitleContains(String title);
+    List<Book> findBooksByTitleContains(String title);
 
     List<Book> findBooksByMaxLoanDays(int maxLoanDays);
 }
