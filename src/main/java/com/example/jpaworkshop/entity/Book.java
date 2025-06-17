@@ -3,6 +3,7 @@ package com.example.jpaworkshop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -31,6 +32,12 @@ public class Book {
     @Setter
     @Column(nullable = false)
     private int maxLoanDays;
+
+    @Getter
+    @Setter
+    @ManyToMany(mappedBy = "books") //Mapped indicates that the book is not the owning side
+    private List<Author> authors;
+
 
     public Book(String title, int maxLoanDays) {
         this.title = title;
