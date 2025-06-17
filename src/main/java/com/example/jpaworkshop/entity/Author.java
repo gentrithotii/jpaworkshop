@@ -34,5 +34,26 @@ public class Author {
     )
     private Set<Book> books;
 
+    public void addBook(Book book) {
+        if (book == null) throw new IllegalArgumentException("Book cannot be null.");
+        if (!this.books.contains(book)) {
+            this.books.add(book);
+
+            if (book.getAuthors() != null && !book.getAuthors().contains(this)) {
+                book.addAuthor(this);
+            }
+        }
+    }
+
+    public void removeBook(Book book) {
+        if (book == null) throw new IllegalArgumentException("Book cannot be null.");
+        if (this.books.contains(book)) {
+            this.books.remove(book);
+
+            if (book.getAuthors() != null && book.getAuthors().contains(this)) {
+                book.removeAuthor(this);
+            }
+        }
+    }
 
 }

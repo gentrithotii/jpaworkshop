@@ -48,4 +48,21 @@ public class Book {
     private void onCreation() {
         this.isbn = String.valueOf(UUID.randomUUID());
     }
+
+    public void addAuthor(Author author) {
+        if (author == null) throw new IllegalArgumentException("Author cannot be null.");
+        if (!this.authors.contains(author)) {
+            this.authors.add(author);
+            author.addBook(this); // Update the owning side
+        }
+    }
+
+    public void removeAuthor(Author author) {
+        if (author == null) throw new IllegalArgumentException("Author cannot be null.");
+        if (this.authors.contains(author)) {
+            this.authors.remove(author);
+            author.removeBook(this);
+        }
+    }
+
 }

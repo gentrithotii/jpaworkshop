@@ -44,6 +44,7 @@ public class AppUser {
     @JoinColumn(name = "details_id") // Foreign key of details
     private Details userDetails;
 
+    @Getter
     @OneToMany(mappedBy = "borrower")
     List<BookLoan> bookLoans;
 
@@ -57,6 +58,11 @@ public class AppUser {
     @PrePersist // Creates the date of now before the entity is created
     public void onCreate() {
         this.regDate = LocalDate.now();
+    }
+
+    public void addBookLoan(BookLoan bookLoan) {
+        bookLoan.setBorrower(this);
+        getBookLoans().add(bookLoan);
     }
 }
 
