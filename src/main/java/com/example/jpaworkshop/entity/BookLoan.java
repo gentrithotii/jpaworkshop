@@ -15,7 +15,7 @@ public class BookLoan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
-    @Column(name = "book_loan_id", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private int id;
     @Getter
     @Setter
