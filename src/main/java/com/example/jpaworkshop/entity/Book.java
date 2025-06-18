@@ -3,10 +3,10 @@ package com.example.jpaworkshop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
@@ -35,25 +35,34 @@ public class Book {
 
     @Getter
     @Setter
-    @ManyToMany(mappedBy = "books") //Mapped indicates that the book is not the owning side
-    private List<Author> authors;
+    private boolean isAvailable;
 
+    @Getter
+    @Setter
+    @ManyToMany(mappedBy = "books") //Mapped indicates that the book is not the owning side
+    private List<Author> authors = new ArrayList<>();
+
+    public Book(int id, String isbn, String title, int maxLoanDays, List<Author> authors) {
+        this.id = id;
+        this.isbn = isbn;
+        this.title = title;
+        this.maxLoanDays = maxLoanDays;
+        this.authors = authors;
+    }
 
     public Book(String title, int maxLoanDays) {
         this.title = title;
         this.maxLoanDays = maxLoanDays;
+        this.isbn = String.valueOf(UUID.randomUUID());
+        this.isAvailable = true;
     }
 
-    @PrePersist
-    private void onCreation() {
-        this.isbn = String.valueOf(UUID.randomUUID());
-    }
 
     public void addAuthor(Author author) {
         if (author == null) throw new IllegalArgumentException("Author cannot be null.");
         if (!this.authors.contains(author)) {
             this.authors.add(author);
-            author.addBook(this); // Update the owning side
+            author.addBook(this);
         }
     }
 

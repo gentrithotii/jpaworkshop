@@ -55,7 +55,7 @@ public class AppUser {
         this.userDetails = userDetails;
     }
 
-    @PrePersist // Creates the date of now before the entity is created
+    @PrePersist // Creates the date of now before the entity is Saved
     public void onCreate() {
         this.regDate = LocalDate.now();
     }

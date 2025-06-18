@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -32,7 +33,7 @@ public class Author {
             joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id")
     )
-    private Set<Book> books;
+    private Set<Book> books = new HashSet<>();
 
     public void addBook(Book book) {
         if (book == null) throw new IllegalArgumentException("Book cannot be null.");

@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 
@@ -42,19 +41,32 @@ public class BookLoan {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    public BookLoan(LocalDate loanDate, LocalDate dueDate, boolean returned, AppUser borrower, Book book) {
-        this.loanDate = loanDate;
-        this.dueDate = dueDate;
-        this.returned = returned;
-        this.borrower = borrower;
-        this.book = book;
+    public BookLoan(boolean returned, AppUser borrower, Book book) {
+        setBook(book);
+        setLoanDate(LocalDate.now());
+        calculateDueDate();
+        setReturned(returned);
+        setBorrower(borrower);
     }
+
+//    @PrePersist
+//    private void onCreation() {
+//        this.dueDate = getLoanDate().plusDays(getBook().getMaxLoanDays());
+//    }
+
+//    @PreUpdate
+//    @PreRemove
 
     public void loanBook(Book book) {
         setLoanDate(LocalDate.now());
-        setDueDate(LocalDate.now().plusDays(book.getMaxLoanDays()));
-        // setReturned(false);
         setBook(book);
 
     }
+
+    private void calculateDueDate() {
+        if (book != null && loanDate != null) {
+            this.dueDate = loanDate.plusDays(book.getMaxLoanDays());
+        }
+    }
+
 }
