@@ -57,15 +57,10 @@ public class BookLoan {
 //    @PreUpdate
 //    @PreRemove
 
-    public void loanBook(Book book) {
-        setLoanDate(LocalDate.now());
-        setBook(book);
-
-    }
 
     private void calculateDueDate() {
         if (book != null && loanDate != null) {
-            this.dueDate = loanDate.plusDays(book.getMaxLoanDays());
+            setDueDate(getLoanDate().plusDays(getBook().getMaxLoanDays()));
         }
     }
 

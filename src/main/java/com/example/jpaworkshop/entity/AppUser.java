@@ -60,10 +60,6 @@ public class AppUser {
         this.regDate = LocalDate.now();
     }
 
-    public void addBookLoan(BookLoan bookLoan) {
-        bookLoan.setBorrower(this);
-        getBookLoans().add(bookLoan);
-    }
 }
 
 
