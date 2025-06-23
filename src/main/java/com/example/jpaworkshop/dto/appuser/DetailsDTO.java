@@ -1,4 +1,4 @@
-package com.example.jpaworkshop.dto;
+package com.example.jpaworkshop.dto.appuser;
 
 import com.example.jpaworkshop.entity.Details;
 import lombok.*;

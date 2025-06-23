@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO Add bcrypt to password
+
 //Lombok
 @NoArgsConstructor // Adds empty constructor which is needed for JPA
 @AllArgsConstructor //Adds  a constructor with all arguments

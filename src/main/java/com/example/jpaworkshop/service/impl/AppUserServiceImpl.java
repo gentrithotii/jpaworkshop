@@ -1,8 +1,7 @@
 package com.example.jpaworkshop.service.impl;
 
-import com.example.jpaworkshop.dto.AppUserDTO;
-import com.example.jpaworkshop.dto.AppUserRegisterDTO;
-import com.example.jpaworkshop.dto.DetailsDTO;
+import com.example.jpaworkshop.dto.appuser.AppUserDTO;
+import com.example.jpaworkshop.dto.appuser.AppUserRegisterDTO;
 import com.example.jpaworkshop.entity.AppUser;
 import com.example.jpaworkshop.entity.Details;
 import com.example.jpaworkshop.repository.AppUserRepository;
