@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookManagerServiceImpl implements BookManagerService {
-    private AppUserRepository appUserRepository;
-    private BookLoanRepository bookLoanRepository;
+    private final AppUserRepository appUserRepository;
+    private final BookLoanRepository bookLoanRepository;
 
     @Autowired
     public BookManagerServiceImpl(AppUserRepository appUserRepository, BookLoanRepository bookLoanRepository) {

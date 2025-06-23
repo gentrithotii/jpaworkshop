@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookLoanServiceImpl implements BookLoanService {
-    private BookLoanRepository bookLoanRepository;
+    private final BookLoanRepository bookLoanRepository;
 
 
     @Autowired
