@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 //Lombok
@@ -45,10 +46,10 @@ public class AppUser {
     private Details userDetails;
 
     @Getter
-    @OneToMany(mappedBy = "borrower")
-    List<BookLoan> bookLoans;
+        @OneToMany(mappedBy = "borrower", fetch = FetchType.EAGER)
+    List<BookLoan> bookLoans = new ArrayList<>();
 
-    public AppUser(String username, String password, LocalDate regDate, Details userDetails) {
+    public AppUser(String username, String password, Details userDetails) {
         this.username = username;
         this.password = password;
         this.userDetails = userDetails;

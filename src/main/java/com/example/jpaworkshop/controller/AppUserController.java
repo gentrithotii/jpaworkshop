@@ -1,5 +1,7 @@
 package com.example.jpaworkshop.controller;
 
+import com.example.jpaworkshop.dto.AppUserDTO;
+import com.example.jpaworkshop.dto.AppUserRegisterDTO;
 import com.example.jpaworkshop.entity.AppUser;
 import com.example.jpaworkshop.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +21,19 @@ public class AppUserController {
         this.appUserService = appUserService;
     }
 
+    {
+    }
+
     @GetMapping("appusers")
-    public ResponseEntity<List<AppUser>> getUsers() {
-        List<AppUser> result = appUserService.getAllUsers();
+    public ResponseEntity<List<AppUserDTO>> getUsers() {
+        List<AppUserDTO> result = appUserService.getAllUsers();
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
 
 
     @PostMapping("appuser")
-    public ResponseEntity<AppUser> registerUser(@RequestBody AppUser user) {
-        appUserService.registerAppUser(user);
+    public ResponseEntity<AppUserRegisterDTO> registerUser(@RequestBody AppUserRegisterDTO appUserRegisterDTO) {
+        AppUserRegisterDTO user = appUserService.registerAppUser(appUserRegisterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 }

@@ -29,19 +29,19 @@ class AppUserRepositoryTest {
     @BeforeEach // Used to set up things before each test
     public void setUp() {
         Details detailsUser1 = new Details("test@test.com", "Gentrit", LocalDate.of(1994, 10, 24));
-        user1 = new AppUser("test", "1234", LocalDate.now(), detailsUser1);
+        user1 = new AppUser("test", "1234", detailsUser1);
 
         Details detailsUser2 = new Details("anna@example.com", "Anna", LocalDate.of(1988, 5, 12));
-        user2 = new AppUser("anna88", "abcd", LocalDate.now(), detailsUser2);
+        user2 = new AppUser("anna88", "abcd", detailsUser2);
 
         Details detailsUser3 = new Details("johndoe@mail.com", "John", LocalDate.of(2000, 1, 5));
-        user3 = new AppUser("johnd", "pass123", LocalDate.now(), detailsUser3);
+        user3 = new AppUser("johnd", "pass123", detailsUser3);
 
         Details detailsUser4 = new Details("maria@example.org", "Maria", LocalDate.of(1990, 7, 19));
-        user4 = new AppUser("maria90", "secure!", LocalDate.now(), detailsUser4);
+        user4 = new AppUser("maria90", "secure!", detailsUser4);
 
         Details detailsUser5 = new Details("alex99@test.com", "Alex", LocalDate.of(1999, 12, 30));
-        user5 = new AppUser("alex99", "mypassword", LocalDate.now(), detailsUser5);
+        user5 = new AppUser("alex99", "mypassword", detailsUser5);
 
         appUserRepository.save(user1);
         appUserRepository.save(user2);
@@ -57,7 +57,7 @@ class AppUserRepositoryTest {
     public void testIfUserAdded() {
         //Arrange
         Details detailsUser = new Details("create@create.com", "creator", LocalDate.of(2000, 10, 24));
-        AppUser expected = new AppUser("create", "2345", LocalDate.now(), detailsUser);
+        AppUser expected = new AppUser("create", "2345", detailsUser);
 
         //Act
         appUserRepository.save(expected);
@@ -232,7 +232,7 @@ class AppUserRepositoryTest {
     public void testMultipleUsersWithSameRegDate() {
         //Arrange
         Details newDetails = new Details("new@test.com", "NewUser", LocalDate.of(1995, 1, 1));
-        AppUser newUser = new AppUser("newuser", "pass123", LocalDate.now(), newDetails);
+        AppUser newUser = new AppUser("newuser", "pass123", newDetails);
         appUserRepository.save(newUser);
 
         //Act

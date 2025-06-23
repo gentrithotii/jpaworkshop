@@ -1,6 +1,10 @@
 package com.example.jpaworkshop.service.impl;
 
+import com.example.jpaworkshop.dto.AppUserDTO;
+import com.example.jpaworkshop.dto.AppUserRegisterDTO;
+import com.example.jpaworkshop.dto.DetailsDTO;
 import com.example.jpaworkshop.entity.AppUser;
+import com.example.jpaworkshop.entity.Details;
 import com.example.jpaworkshop.repository.AppUserRepository;
 import com.example.jpaworkshop.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,27 +24,31 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public List<AppUser> getAllUsers() {
-        List<AppUser> result = new ArrayList<>();
-        appUserRepository.findAll().forEach((appUser) -> result.add(appUser));
+    public List<AppUserDTO> getAllUsers() {
+        List<AppUserDTO> result = new ArrayList<>();
+        appUserRepository.findAll().forEach((appUser) -> {
+            result.add(new AppUserDTO(appUser));
+        });
+
         return result;
     }
 
 
     @Override
+    public AppUserRegisterDTO registerAppUser(AppUserRegisterDTO appUserRegisterDTO) {
 
-    public AppUser registerAppUser(AppUser appUser) {
-        return appUserRepository.save(appUser);
+        AppUser user = new AppUser(appUserRegisterDTO.getUsername(), appUserRegisterDTO.getPassword(), new Details(appUserRegisterDTO.getUserDetails().getEmail(), appUserRegisterDTO.getUserDetails().getName(), appUserRegisterDTO.getUserDetails().getBirthDate()));
+        return new AppUserRegisterDTO(user);
     }
 
     @Override
-    public Optional<AppUser> findAppUserById(int id) {
-        return appUserRepository.findById(id);
+    public Optional<AppUserDTO> findAppUserById(int id) {
+        return appUserRepository.findById(id).map((user) -> new AppUserDTO(user));
     }
 
     @Override
-    public Optional<AppUser> findAppUserByUsername(String username) {
-        return appUserRepository.findAppUsersByUsername(username);
+    public Optional<AppUserDTO> findAppUserByUsername(String username) {
+        return appUserRepository.findAppUsersByUsername(username).map((user) -> new AppUserDTO(user));
     }
 
     @Override
