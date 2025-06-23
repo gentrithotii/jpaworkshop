@@ -51,7 +51,6 @@ public class AppUser {
     public AppUser(String username, String password, LocalDate regDate, Details userDetails) {
         this.username = username;
         this.password = password;
-        this.regDate = regDate;
         this.userDetails = userDetails;
     }
 

@@ -11,11 +11,12 @@ import java.time.LocalDate;
 @Entity
 public class BookLoan {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     @Column(nullable = false, updatable = false)
     private int id;
+
     @Getter
     @Setter
     @Column(nullable = false)

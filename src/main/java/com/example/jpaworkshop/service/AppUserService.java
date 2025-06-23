@@ -1,14 +1,17 @@
 package com.example.jpaworkshop.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.jpaworkshop.entity.AppUser;
 
-@Service
-public class AppUserService {
-    private AppUserService appUserService;
+import java.util.Optional;
 
-    @Autowired
-    public AppUserService(AppUserService appUserService) {
-        this.appUserService = appUserService;
-    }
+public interface AppUserService {
+    AppUser registerAppUser(AppUser appUser);
+
+    Optional<AppUser> findAppUserById(int id);
+
+    Optional<AppUser> findAppUserByUsername(String username);
+
+    boolean updateAppUser(AppUser appUser);
+
+
 }
