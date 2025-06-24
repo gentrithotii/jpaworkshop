@@ -26,7 +26,6 @@ public class Author {
     @Column(length = 50)
     private String lastName;
 
-
     @ManyToMany
     @JoinTable(
             name = "author_book",
