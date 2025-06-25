@@ -1,5 +1,6 @@
 package com.example.jpaworkshop.repository;
 
+import com.example.jpaworkshop.entity.Book;
 import com.example.jpaworkshop.entity.BookLoan;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
